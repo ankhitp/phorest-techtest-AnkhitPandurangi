@@ -1,0 +1,21 @@
+/* -------------------------- Section for normal HTML/CSS tages -------------------------- */
+body{
+    font-family: Apercu, sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 70px;
+}
+
+h2{
+    color: rgb(225, 225, 225);
+    font-size: 20pt;
+}
+@font-face {
+    font-family: Apercu;
+    src: url("fonts/apercu_regular_pro.otf") format("opentype");
+}
+@font-face {
+    font-family: Apercu;
+    font-weight: bold;
+    src: url("fonts/apercu_bold_pro.otf") format("opentype");
+}
