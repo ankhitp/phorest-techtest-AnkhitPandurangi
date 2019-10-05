@@ -3,7 +3,7 @@
  */
 function chooseInput() {
     let data =  document.getElementById('typeSelect').value;
-    
+
     if (data === "email") {
         document.getElementById('enterEmail').style.display = "block";
         document.getElementById('enterPhone').style.display = "none";
@@ -23,7 +23,7 @@ function chooseInput() {
     else {
         document.getElementById('enterEmail').style.display = "none";
         document.getElementById('enterPhone').style.display = "none";
-        dif (document.getElementById('balanceAmount') !== null) {
+        if (document.getElementById('balanceAmount') !== null) {
             document.getElementById('balanceAmount').innerHTML = "";
         }
         document.getElementById("clientList").innerHTML = "";
