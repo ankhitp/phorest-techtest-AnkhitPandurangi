@@ -1,3 +1,6 @@
+/**
+ * The chooseInput function will show a div based on whether the user selects 'email' or 'phone'
+ */
 function chooseInput() {
     let data =  document.getElementById('typeSelect').value;
     if (data === "email") {
@@ -14,8 +17,9 @@ function chooseInput() {
     }
 }
 
-
-
+/**
+ * The reset page sets the page back to its original state (as it is when the page is loaded)
+ */
 function resetPage() {
     document.getElementById('typeSelect').value = 'default';
     document.getElementById('enterEmail').style.display = "none";
