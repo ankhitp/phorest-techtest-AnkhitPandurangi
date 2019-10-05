@@ -44,14 +44,15 @@
             <!--div to hold the email input box and search button-->
             <div id = "enterEmail" style = "display: none">
                 <input type="email" id="clientSearch" placeholder="Enter email..." autocomplete="off"><br><br>
-                <button class='btn btn-primary' type = "submit" onclick="sendReq(document.getElementById
+                <button class='btn btn-primary' id = 'emailSearch' type = "submit" onclick="sendReq(document.getElementById
                 ('clientSearch').value, 'email')">Search for Client</button>
             </div>
+
             <!--div to hold the phone # input box and search button-->
             <div id = "enterPhone" style = "display: none">
                 <input type="tel" id="phone" name="phone"
                        required autocomplete="off" placeholder="Enter phone #..."><br><br>
-                <button class='btn btn-primary' onclick="sendReq(document.getElementById('phone').value, 'phone')" >
+                <button class='btn btn-primary' id = 'phoneSearch' onclick="sendReq(document.getElementById('phone').value, 'phone')" >
                     Search for Client</button>
             </div>
         </div>
@@ -90,7 +91,28 @@
 
 </body>
 
-
+<script>
+    //check if enter key (13) is pressed, and trigger button if pressed.
+    let emailIn = document.getElementById('clientSearch');
+    emailIn.addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            document.getElementById("emailSearch").click();
+        }
+    });
+</script>
+<script>
+    //check if enter key (13) is pressed, and trigger button if pressed.
+    let phoneIn = document.getElementById('phone');
+    phoneIn.addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            document.getElementById("phoneSearch").click();
+        }
+    });
+</script>
 
 
 <!-- ************************************Bootstrap************************************************* -->
