@@ -3,16 +3,29 @@
  */
 function chooseInput() {
     let data =  document.getElementById('typeSelect').value;
+    
     if (data === "email") {
         document.getElementById('enterEmail').style.display = "block";
         document.getElementById('enterPhone').style.display = "none";
-        document.getElementById('balanceAmount').innerHTML = "";
+        if (document.getElementById('balanceAmount') !== null) {
+            document.getElementById('balanceAmount').innerHTML = "";
+        }
         document.getElementById("clientList").innerHTML = "";
     }
     else if (data === "phone") {
         document.getElementById('enterEmail').style.display = "none";
         document.getElementById('enterPhone').style.display = "block";
-        document.getElementById('balanceAmount').innerHTML = "";
+        if (document.getElementById('balanceAmount') !== null) {
+            document.getElementById('balanceAmount').innerHTML = "";
+        }
+        document.getElementById("clientList").innerHTML = "";
+    }
+    else {
+        document.getElementById('enterEmail').style.display = "none";
+        document.getElementById('enterPhone').style.display = "none";
+        dif (document.getElementById('balanceAmount') !== null) {
+            document.getElementById('balanceAmount').innerHTML = "";
+        }
         document.getElementById("clientList").innerHTML = "";
     }
 }

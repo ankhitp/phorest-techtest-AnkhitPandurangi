@@ -11,7 +11,6 @@ def index():
 
 #This route is for getting client data, it has built in error handling to make sure valid inputs are presented, rather
 #than relying on the HTML to provide proper validation.
-
 @app.route('/getClientData', methods=['POST'])
 def getClientData():
     url = "https://api-gateway-dev.phorest.com/third-party-api-server/api/business/eTC3QY5W3p_HmGHezKfxJw/client?"

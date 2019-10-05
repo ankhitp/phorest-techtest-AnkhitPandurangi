@@ -19,3 +19,28 @@ h2{
     font-weight: bold;
     src: url("fonts/apercu_bold_pro.otf") format("opentype");
 }
+table{
+    border-collapse: collapse;
+    table-layout:fixed;
+}
+body{
+    background: whitesmoke;
+}
+td{
+    border: 1px;
+    padding: 10px 30px 10px 20px;
+    text-align: center;
+    cursor: pointer;
+}
+tr{
+    border-bottom: 1pt solid black;
+    text-align: center;
+    background-color: whitesmoke;
+}
+tr:hover{
+    background-color:lightskyblue;
+}
+th {
+    padding-left: 20px;
+    padding-bottom: 20px;
+}

@@ -17,36 +17,17 @@
     <title>Phorest Technical Test</title>
     <!--****************************************************************************************-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <style>
-        table{
-            border-collapse: collapse;
-            table-layout:fixed;
-        }
-        body{
-            background: whitesmoke;
-        }
-        td{
-            border: 1px;
-            padding: 10px 30px 10px 20px;
-            text-align: center;
-            cursor: pointer;
-        }
-        tr{
-            border-bottom: 1pt solid black;
-            text-align: center;
-            background-color: whitesmoke;
-        }
-        tr:hover{
-            background-color:lightskyblue;
-        }
-        th {
-            padding-left: 20px;
-            padding-bottom: 20px;
-        }
-    </style>
 
 </head>
-
+<script>
+    $(document).ready(function () {
+        $('typeSelect').val('default');
+    });
+</script>
+<!--javaScript files-->
+<script type="text/javascript" src="{{ url_for('static', filename='clientRequestJS.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='pageJS.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='voucherJS.js') }}"></script>
 <body>
 <!--main container div-->
 <div class = 'container-fluid' id = 'pageContainer'>
@@ -94,15 +75,7 @@
 </div>
 
 </body>
-<script>
-    $(document).ready(function () {
-        $('typeSelect').val('default');
-    });
-</script>
-<!--javaScript files-->
-<script type="text/javascript" src="{{ url_for('static', filename='clientRequestJS.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='pageJS.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='voucherJS.js') }}"></script>
+
 
 
 

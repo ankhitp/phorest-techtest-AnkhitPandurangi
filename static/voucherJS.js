@@ -10,8 +10,10 @@
  */
 function voucherPOST(client) {
     let balance = parseFloat(document.getElementById('balance').value);
+
     let currentTime = new Date();
     currentTime = currentTime.toISOString();
+    
     let voucherBody = {
         "clientId": client,
         "creatingBranchId": "SE-J0emUgQnya14mOGdQSw",
@@ -26,13 +28,16 @@ function voucherPOST(client) {
         ],
         "originalBalance": balance
     };
-    let voucherHttpReq = new XMLHttpRequest();
+    
     let  url = "https://api-gateway-dev.phorest.com/third-party-api-server/api/business/eTC3QY5W3p_HmGHezKfxJw/voucher";
+    let voucherHttpReq = new XMLHttpRequest();
+    
     voucherHttpReq.open("POST", url, true);
     voucherHttpReq.setRequestHeader('content-type', 'application/json;charset=UTF-8');
     voucherHttpReq.setRequestHeader("Authorization", "Basic " +
-        btoa('global/cloud@apiexamples.com:VMlRo/eh+Xd8M~l'));
+        btoa('global/cloud@apiexamples.com:VMlRo/eh+Xd8M~l'));        
     voucherHttpReq.send(JSON.stringify(voucherBody));
+
     voucherHttpReq.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 201) {
             document.getElementById('clientSearch').disabled = true;
@@ -54,6 +59,7 @@ function voucherPOST(client) {
     }
 
 }
+
 
 /**
  * The voucher create function creates the "balance" field for the user to input a balance for the voucher they want

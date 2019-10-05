@@ -8,15 +8,18 @@
  */
 function sendReq(data, type) {
     let table = "<table id = 'myTable' border='1' align = 'center'>";
+
     table += "<tr>" +
         "<th style = 'text-align:center'>Name</th>" +
         "<th>Mobile</th>" +
         "<th>Email</th>" +
         "<th>Client ID</th></tr>";
+
     let clientHttpReq = new XMLHttpRequest();
     clientHttpReq.open("POST", "/getClientData", true);
     clientHttpReq.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
     clientHttpReq.send("clientInfo="+data+"&type="+type);
+
     clientHttpReq.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             //a response of -10 indicates the email entered is an invalid format
@@ -35,6 +38,7 @@ function sendReq(data, type) {
             else {
                 let flaskJsonReturn = JSON.parse(this.responseText);
                 document.getElementById("clientList").style.display = "block";
+                
                 if (flaskJsonReturn['_embedded'] !== undefined) {
                     for (let i = 0; i < (flaskJsonReturn['_embedded']['clients']).length; i++) {
                         table += "<tr id = 'tr"+i+"' onclick='voucherCreate(" + i + ")'><td>" +
@@ -45,6 +49,7 @@ function sendReq(data, type) {
                         table += "<td id = '" + i + "'>" + flaskJsonReturn['_embedded']['clients'][i]['clientId'] + "</td></tr>";
                     }
                     table += "</table>";
+
                     document.getElementById("clientList").innerHTML = "<h1 style='text-align: center'>Choose a " +
                         "client to create a voucher for!</h1>" + table;
                 } else {
@@ -54,6 +59,5 @@ function sendReq(data, type) {
                 }
             }
         }
-
     }
 }
