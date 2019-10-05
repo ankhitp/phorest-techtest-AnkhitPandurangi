@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-    
+
     <!--*********************************Stylesheets*************************************************-->
     <!--bootstrap formatting CSS for mobiles-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,35 @@
 	<!--********************************Webpage Title*******************************************-->
     <title>Phorest Technical Test</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <style>
+        table{
+            border-collapse: collapse;
+            table-layout:fixed;
+        }
+        body{
+            background: whitesmoke;
+        }
+        td{
+            border: 1px;
+            padding: 10px 30px 10px 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+        tr{
+            border-bottom: 1pt solid black;
+            text-align: center;
+        }
+        tr:hover{
+            background-color:lightskyblue;
+        }
+        th {
+            padding-left: 20px;
+            padding-bottom: 20px;
+        }
+        tr.active {
+            background:#ccc;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,43 +53,153 @@
     <div class = "row" style = "text-align: center">
         <div class = 'col-md-4 offset-md-4'>
             <h1>
-                This is the site!
+                Look up some clients and create vouchers for them!
             </h1>
-            <input type="text" id="clientSearch" placeholder="Enter email or phone #..." autocomplete="off"><br><br>
-            <button class='btn btn-primary' onclick="sendReq(document.getElementById('clientSearch').value)">Click me</button>
+            <br>
+            <h4>Select a method to search for clients:</h4>
+            <select id = "typeSelect" onchange = chooseInput()>
+                <option value="" selected="selected">Select an option</option>
+                <option value="email">Email</option>
+                <option value="phone">Phone Number</option>
+            </select>
+            <br>
+            <br>
+            <div id = "enterEmail" style = "display: none">
+                <input type="email" id="clientSearch" placeholder="Enter email..." autocomplete="off"><br><br>
+                <button class='btn btn-primary' type = "submit" onclick="sendReq(document.getElementById('clientSearch').value, 'email')">Click me</button>
+            </div>
+            <div id = "enterPhone" style = "display: none">
+                <input type="tel" id="phone" name="phone"
+                       required autocomplete="off"><br><br>
+                <button class='btn btn-primary' onclick="sendReq(document.getElementById('phone').value, 'phone')" >Click me</button>
+            </div>
         </div>
     </div>
     <br>
-    <div id = "clientList" class = "col-md-4 offset-md-4" style="display: none; text-align: center">
+    <div id = "clientList" class = "col-md-4 offset-md-4" style="display: none;">
+    </div>
+    <div id = "voucherBalance" class = "col-md-4 offset-md-4" style="display: none;">
+    </div>
+    <br>
+    <div id = "voucherResults" class = "col-md-4 offset-md-4" style="display: none;">
     </div>
 </div>
 
 
 <script>
-function sendReq(data) {
+function sendReq(data, type) {
+    let table = "<table id = 'myTable' border='1' align = 'center'>";
+    table += "<tr>" +
+        "<th style = 'text-align:center'>Name</th>" +
+        "<th>Mobile</th>" +
+        "<th>Email</th>" +
+        "<th>Client ID</th></tr>";
     let clientHttpReq = new XMLHttpRequest();
     clientHttpReq.open("POST", "/getClientData", true);
     clientHttpReq.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-    clientHttpReq.send("clientInfo="+data);
+    clientHttpReq.send("clientInfo="+data+"&type="+type);
     clientHttpReq.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            let flaskJsonReturn = JSON.parse(this.responseText);
-            document.getElementById("clientList").style.display = "block";
-            let html = "";
-            for (let i = 0; i < (flaskJsonReturn['_embedded']['clients']).length; i++) {
-                html += flaskJsonReturn['_embedded']['clients'][i]['firstName'] +" "+ flaskJsonReturn['_embedded']['clients'][i]['lastName'];
-                html+="<br><br>";
+            if (this.responseText === "-10") {
+                document.getElementById("clientList").style.display = "block";
+                document.getElementById('clientList').innerHTML = "<h3 style='text-align: center'>You entered an invalid email address. Please try again!</h3>"
             }
-            document.getElementById("clientList").innerHTML = html;
+            else if (this.responseText === "-20") {
+                document.getElementById("clientList").style.display = "block";
+                document.getElementById('clientList').innerHTML = "<h3 style='text-align: center'>You entered an invalid phone number. Please try again!</h3>"
+            }
+            else {
+                let flaskJsonReturn = JSON.parse(this.responseText);
+                document.getElementById("clientList").style.display = "block";
+                if (flaskJsonReturn['_embedded'] !== undefined) {
+                    for (let i = 0; i < (flaskJsonReturn['_embedded']['clients']).length; i++) {
+                        table += "<tr id = \"'tr'+i\" onclick='voucherCreate(" + i + ")'><td>" + flaskJsonReturn['_embedded']['clients'][i]['firstName'] + " " + flaskJsonReturn['_embedded']['clients'][i]['lastName'] + "</td>";
+                        table += "<td>" + flaskJsonReturn['_embedded']['clients'][i]['mobile'] + "</td>";
+                        table += "<td>" + flaskJsonReturn['_embedded']['clients'][i]['email'] + "</td>";
+                        table += "<td id = '" + i + "'>" + flaskJsonReturn['_embedded']['clients'][i]['clientId'] + "</td></tr>";
+                    }
+                    table += "</table>";
+                    document.getElementById("clientList").innerHTML = "<h1 style='text-align: center'>Choose a client to create a voucher for!</h1>" + table;
+                } else {
+                    document.getElementById("clientList").innerHTML = "<p style='text-align: center'>Sorry, no results for that email/phone number!</p>"
+
+                }
+            }
         }
 
     }
+}
+
+function chooseInput() {
+    let data =  document.getElementById('typeSelect').value;
+    if (data === "email") {
+        document.getElementById('enterEmail').style.display = "block";
+        document.getElementById('enterPhone').style.display = "none";
+        document.getElementById('balanceAmount').innerHTML = "";
+        document.getElementById("clientList").innerHTML = "";
+    }
+    else if (data === "phone") {
+        document.getElementById('enterEmail').style.display = "none";
+        document.getElementById('enterPhone').style.display = "block";
+        document.getElementById('balanceAmount').innerHTML = "";
+        document.getElementById("clientList").innerHTML = "";
+    }
+}
+
+function voucherCreate(i) {
+    document.getElementById("tr"+i).style.background = "white";
+    document.getElementById('voucherResults').innerHTML = "";
+    let client = document.getElementById(i).innerText;
+    document.getElementById('voucherBalance').style.display = "block";
+    document.getElementById('voucherBalance').innerHTML =
+        "<br><div id = 'balanceAmount' style='text-align: center'><h3>Enter a balance you'd like use for the voucher:</h3>" +
+        '<input type="number" step = ".01" id="balance" placeholder="Enter balance (euros)..." autocomplete="off"><br><br>'+
+        '<button class="btn btn-primary" type = "submit" onclick="voucherPOST(\''+client+'\')">Click me</button></div>';
+}
+
+function voucherPOST(client) {
+    let balance = parseFloat(document.getElementById('balance').value);
+    let currentTime = new Date();
+    currentTime = currentTime.toISOString();
+    let voucherBody = {
+        "clientId": client,
+        "creatingBranchId": "SE-J0emUgQnya14mOGdQSw",
+        "expiryDate": currentTime,
+        "issueDate": currentTime,
+        "links": [
+            {
+                "href": "string",
+                "rel": "string",
+                "templated": true
+            }
+        ],
+        "originalBalance": balance
+    };
+    let voucherHttpReq = new XMLHttpRequest();
+    let  url = "https://api-gateway-dev.phorest.com/third-party-api-server/api/business/eTC3QY5W3p_HmGHezKfxJw/voucher";
+    voucherHttpReq.open("POST", url, true);
+    voucherHttpReq.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+    voucherHttpReq.setRequestHeader("Authorization", "Basic " + btoa('global/cloud@apiexamples.com:VMlRo/eh+Xd8M~l'));
+    voucherHttpReq.send(JSON.stringify(voucherBody));
+    voucherHttpReq.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 201) {
+            document.getElementById('voucherResults').style.display="block";
+            document.getElementById('voucherResults').innerHTML =
+                "<h3 style = 'text-align: center'>Voucher successfully created!</h3>"
+        }
+        else {
+            document.getElementById('voucherResults').style.display="block";
+            document.getElementById('voucherResults').innerHTML =
+                "<h3 style = 'text-align: center'>There was an error creating the voucher, check all the details and try again!</h3>"
+        }
+    }
+
 }
 </script>
 </body>
 
 
-<!-- ************************************Bootstrap************************************************* -->
+<!-- ************************************Bootsap************************************************* -->
 
 <!--path to cloudflare JS file, needed for Bootstrap-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
