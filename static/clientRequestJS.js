@@ -41,7 +41,7 @@ function sendReq(data, type) {
                 
                 if (flaskJsonReturn['_embedded'] !== undefined) {
                     for (let i = 0; i < (flaskJsonReturn['_embedded']['clients']).length; i++) {
-                        table += "<tr id = 'tr"+i+"' onclick='voucherCreate(" + i + ")'><td>" +
+                        table += "<tr id = 'tr"+i+"' onclick = 'voucherCreate("+i+")' data-toggle='modal' data-target='#voucherModal'><td>" +
                             flaskJsonReturn['_embedded']['clients'][i]['firstName'] + " " +
                             flaskJsonReturn['_embedded']['clients'][i]['lastName'] + "</td>";
                         table += "<td>" + flaskJsonReturn['_embedded']['clients'][i]['mobile'] + "</td>";

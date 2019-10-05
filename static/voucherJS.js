@@ -71,8 +71,7 @@ function voucherPOST(client) {
 function voucherCreate(i) {
     document.getElementById('voucherResults').innerHTML = "";
     let client = document.getElementById(i).innerText;
-    document.getElementById('voucherBalance').style.display = "block";
-    document.getElementById('voucherBalance').innerHTML =
+    document.getElementById('modalBody').innerHTML =
         "<br><div id = 'balanceAmount' style='text-align: center'><h4>Creating a voucher for client ID: " + client +
         " </h4><br><h5>Please enter a balance to use: </h5>" +
         '<input type="number" step = ".01" id="balance" placeholder="Enter balance (euros)..." autocomplete="off"><br><br>'+

@@ -19,11 +19,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 </head>
-<script>
-    $(document).ready(function () {
-        $('typeSelect').val('default');
-    });
-</script>
 <!--javaScript files-->
 <script type="text/javascript" src="{{ url_for('static', filename='clientRequestJS.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='pageJS.js') }}"></script>
@@ -55,7 +50,7 @@
             <!--div to hold the phone # input box and search button-->
             <div id = "enterPhone" style = "display: none">
                 <input type="tel" id="phone" name="phone"
-                       required autocomplete="off"><br><br>
+                       required autocomplete="off" placeholder="Enter phone #..."><br><br>
                 <button class='btn btn-primary' onclick="sendReq(document.getElementById('phone').value, 'phone')" >
                     Search for Client</button>
             </div>
@@ -69,9 +64,28 @@
     <div id = "voucherBalance" class = "col-md-4 offset-md-4" style="display: none;">
     </div>
     <br>
-    <!--div to hold voucher results (successful or failure)-->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="voucherModal" tabindex="-1" role="dialog" aria-labelledby="myVoucherModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="voucherCreation">Voucher Creation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id = "modalBody" class="modal-body">
+      </div>
+       <!--div to hold voucher results (successful or failure)-->
     <div id = "voucherResults" class = "col-md-4 offset-md-4" style="display: none;">
     </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
