@@ -40,26 +40,34 @@ function voucherPOST(client) {
 
     voucherHttpReq.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 201) {
-            let table = "<table id = 'myTable' border='1' align = 'center'>";
-            table += "<tr>" +
-                "<th style = 'text-align:center'>Voucher ID</th>" +
-                "<th>Voucher Serial</th></tr>";
+
+            let table =
+                "<table id = 'myTable' border='1' align = 'center'>+" +
+                    "<tr>" +
+                        "<th style = 'text-align:center'>Voucher ID</th>" +
+                        "<th>Voucher Serial</th>" +
+                    "</tr>";
+
             let voucherId = JSON.parse(this.responseText);
             voucherId = voucherId['voucherId'];
             let voucherSerial = JSON.parse(this.responseText);
             voucherSerial = voucherSerial['serialNumber'];
+
             table += "<tr><td>" + voucherId +  "</td>";
             table += "<td>" + voucherSerial+ "</td></tr>";
             table += "</table>";
+
             document.getElementById('clientSearch').disabled = true;
             document.getElementById('phone').disabled = true;
             document.getElementById('balance').disabled = true;
             document.getElementById('voucherResults').style.display="block";
+
             document.getElementById('voucherResults').innerHTML =
                 "<div style = 'text-align:center'>"+
-                "<h4>Voucher successfully created!</h4>" +
-                table +
-                "<br><button class='btn btn-primary' type = 'submit' onclick='resetPage()'>Start Over</button>"+
+                    "<h4>Voucher successfully created!</h4>" +
+                    table +
+                    "<br>" +
+                    "<button class='btn btn-primary' type = 'submit' onclick='resetPage()'>Start Over</button>"+
                 "</div>"
         }
         else if (this.readyState === 4 && this.status !== 201) {
@@ -69,7 +77,6 @@ function voucherPOST(client) {
                 " and try again!</h5>"
         }
     }
-
 }
 
 
