@@ -23,6 +23,7 @@ function chooseInput() {
         document.getElementById("clientList").innerHTML = "";
         document.getElementById("clientSearch").value = "";
     }
+    //if switched back to "select an option"
     else {
         document.getElementById('enterEmail').style.display = "none";
         document.getElementById('enterPhone').style.display = "none";
@@ -51,7 +52,7 @@ function resetPage() {
     document.getElementById('balance').disabled = false;
 }
 
-//check if enter key is pressed, and trigger button if pressed.
+//check if enter key is pressed for email input, and trigger button if pressed.
 let emailIn = document.getElementById('clientSearch');
 emailIn.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
@@ -61,7 +62,7 @@ emailIn.addEventListener("keyup", function(event) {
     }
 });
 
-//check if enter key is pressed, and trigger button if pressed.
+//check if enter key is pressed for phone input, and trigger button if pressed.
 let phoneIn = document.getElementById('phone');
 phoneIn.addEventListener("keyup", function(event) {
     if (event.key === "Enter") {
