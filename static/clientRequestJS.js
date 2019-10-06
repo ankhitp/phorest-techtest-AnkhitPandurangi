@@ -7,6 +7,7 @@
  * @param type is either email or phone number
  */
 function sendReq(data, type) {
+    document.getElementById('clientList').innerHTML = "<h4 style = 'text-align: center'>Searching for clients...</h4>";
     let table = "<table id = 'myTable' border='1' align = 'center'>";
 
     table += "<tr>" +

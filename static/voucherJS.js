@@ -46,15 +46,15 @@ function voucherPOST(client) {
             document.getElementById('voucherResults').style.display="block";
             document.getElementById('voucherResults').innerHTML =
                 "<div style = 'text-align:center'>"+
-                "<h3>Voucher successfully created!</h3>" +
+                "<h4>Voucher successfully created!</h4>" +
                 "<br><button class='btn btn-primary' type = 'submit' onclick='resetPage()'>Start Over</button>" +
                 "</div>"
         }
         else if (this.readyState === 4 && this.status !== 201) {
             document.getElementById('voucherResults').style.display="block";
             document.getElementById('voucherResults').innerHTML =
-                "<h3 style = 'text-align: center'>There was an error creating the voucher, check all the details" +
-                " and try again!</h3>"
+                "<h4 style = 'text-align: center'>There was an error creating the voucher, check all the details" +
+                " and try again!</h4>"
         }
     }
 

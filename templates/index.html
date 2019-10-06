@@ -90,9 +90,14 @@
 </div>
 
 </body>
-
 <script>
-    //check if enter key (13) is pressed, and trigger button if pressed.
+    //revert selected option to "select an option" on page refresh
+    $(document).ready(function() {
+        $("#typeSelect").val("default");
+    });
+</script>
+<script>
+    //check if enter key is pressed, and trigger button if pressed.
     let emailIn = document.getElementById('clientSearch');
     emailIn.addEventListener("keyup", function(event) {
         if (event.key === "Enter") {
@@ -103,7 +108,7 @@
     });
 </script>
 <script>
-    //check if enter key (13) is pressed, and trigger button if pressed.
+    //check if enter key is pressed, and trigger button if pressed.
     let phoneIn = document.getElementById('phone');
     phoneIn.addEventListener("keyup", function(event) {
         if (event.key === "Enter") {

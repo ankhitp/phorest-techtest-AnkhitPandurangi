@@ -38,7 +38,7 @@ function chooseInput() {
  */
 function resetPage() {
     $('#voucherModal').modal('hide');
-    document.getElementById("clientList").innerHTML = "";
+    document.getElementById("clientSearch").value = "";
     document.getElementById("phone").value = "";
     document.getElementById('typeSelect').value = 'default';
     document.getElementById('enterEmail').style.display = "none";
