@@ -40,6 +40,17 @@ function voucherPOST(client) {
 
     voucherHttpReq.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 201) {
+            let table = "<table id = 'myTable' border='1' align = 'center'>";
+            table += "<tr>" +
+                "<th style = 'text-align:center'>Voucher ID</th>" +
+                "<th>Voucher Serial</th></tr>";
+            let voucherId = JSON.parse(this.responseText);
+            voucherId = voucherId['voucherId'];
+            let voucherSerial = JSON.parse(this.responseText);
+            voucherSerial = voucherSerial['serialNumber'];
+            table += "<tr><td>" + voucherId +  "</td>";
+            table += "<td>" + voucherSerial+ "</td></tr>";
+            table += "</table>";
             document.getElementById('clientSearch').disabled = true;
             document.getElementById('phone').disabled = true;
             document.getElementById('balance').disabled = true;
@@ -47,14 +58,15 @@ function voucherPOST(client) {
             document.getElementById('voucherResults').innerHTML =
                 "<div style = 'text-align:center'>"+
                 "<h4>Voucher successfully created!</h4>" +
-                "<br><button class='btn btn-primary' type = 'submit' onclick='resetPage()'>Start Over</button>" +
+                table +
+                "<br><button class='btn btn-primary' type = 'submit' onclick='resetPage()'>Start Over</button>"+
                 "</div>"
         }
         else if (this.readyState === 4 && this.status !== 201) {
             document.getElementById('voucherResults').style.display="block";
             document.getElementById('voucherResults').innerHTML =
-                "<h4 style = 'text-align: center'>There was an error creating the voucher, check all the details" +
-                " and try again!</h4>"
+                "<h5 style = 'text-align: center'>There was an error creating the voucher, check all the details" +
+                " and try again!</h5>"
         }
     }
 
