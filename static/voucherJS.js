@@ -9,6 +9,7 @@
  * @param client is the client ID for the client that we want to create a voucher for.
  */
 function voucherPOST(client) {
+    document.getElementById('voucherResults').innerHTML = "<p style = 'text-align: center'>Getting your voucher sorted...</p>";
     let balance = parseFloat(document.getElementById('balance').value);
 
     let currentTime = new Date();
@@ -42,7 +43,7 @@ function voucherPOST(client) {
         if (this.readyState === 4 && this.status === 201) {
 
             let table =
-                "<table id = 'myTable' border='1' align = 'center'>+" +
+                "<table id = 'myTable' border='1' align = 'center'>" +
                     "<tr>" +
                         "<th style = 'text-align:center'>Voucher ID</th>" +
                         "<th>Voucher Serial</th>" +
@@ -63,7 +64,7 @@ function voucherPOST(client) {
             document.getElementById('voucherResults').style.display="block";
 
             document.getElementById('voucherResults').innerHTML =
-                "<div style = 'text-align:center'>"+
+                "<div style = 'text-align:center'>" +
                     "<h4>Voucher successfully created!</h4>" +
                     table +
                     "<br>" +
