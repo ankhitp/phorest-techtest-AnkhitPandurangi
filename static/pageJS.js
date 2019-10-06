@@ -50,3 +50,23 @@ function resetPage() {
     document.getElementById('phone').disabled = false;
     document.getElementById('balance').disabled = false;
 }
+
+//check if enter key is pressed, and trigger button if pressed.
+let emailIn = document.getElementById('clientSearch');
+emailIn.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        document.getElementById("emailSearch").click();
+    }
+});
+
+//check if enter key is pressed, and trigger button if pressed.
+let phoneIn = document.getElementById('phone');
+phoneIn.addEventListener("keyup", function(event) {
+    if (event.key === "Enter") {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        document.getElementById("phoneSearch").click();
+    }
+});
